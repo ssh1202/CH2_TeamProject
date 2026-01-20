@@ -8,6 +8,7 @@ class ACharacter
 {
 public:
     ACharacter();
+    ACharacter(std::string NewName, int NewHp, int NewAtk);
     ~ACharacter();
 
 protected:
@@ -15,6 +16,9 @@ protected:
     int Hp;
     int Atk;
 public:
-    void Attack();
+    void Attack(ACharacter* Target);
     void TakeDamage(int DamageAmount);
+
+    int GetHp();
+    bool IsDead();
 };
