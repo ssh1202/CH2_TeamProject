@@ -1,7 +1,22 @@
 #include "Character.h"
 #include "Monster.h"
+#include <random>
 #include <iostream>
 #include <string>
+
+int getRandomInt()
+{
+    // 시드값 생성기 (한 번만 초기화하기 위해 static 사용)
+    static std::random_device rd;
+
+    // 메르센 트위스터 엔진 (고품질 난수 생성기)
+    static std::mt19937 gen(rd());
+
+    // 0부터 100까지 균등하게 분포 (양 끝값 포함)
+    std::uniform_int_distribution<int> dis(0, 99);
+
+    return dis(gen);
+}
 
 ACharacter::ACharacter()
 {
@@ -15,11 +30,13 @@ ACharacter::ACharacter()
     std::cout << "ACharacter 생성됨: " << Name << " (HP: " << Hp << ")" << std::endl;
 }
 
-ACharacter::ACharacter(std::string NewName, int NewHp, int NewAtk)
+ACharacter::ACharacter(std::string NewName, int NewHp, int NewAtk, int NewDef, int NewCri)
 {
     Name = NewName;
     Hp = NewHp;
     Atk = NewAtk;
+    Def = NewDef;
+    Critical = NewCri;
 
     std::cout << "[생성] " << Name << "가 전장에 나타났습니다! (HP: " << Hp << ")" << endl;
 }
@@ -33,15 +50,32 @@ ACharacter::~ACharacter()
 void ACharacter::Attack(ACharacter* Target)
 {
 
-    std::cout << Name << "가 공격합니다! (공격력" << Atk << ")" << std::endl;
 
-    Target->TakeDamage(Atk);
+
+    int random = getRandomInt();
+
+    if (random <= Critical)
+    {
+        Target->TakeDamage(Atk *= 1.5f);
+        std::cout << Name << "가 크리티컬 공격합니다! (공격력" << Atk << ")" << std::endl;
+    }
+    else
+    {
+        Target->TakeDamage(Atk);
+        std::cout << Name << "가 공격합니다! (공격력" << Atk << ")" << std::endl;
+    }
+    
 
 }
 
 void ACharacter::TakeDamage(int DamageAmount)
 {
+    DamageAmount -= Def;
 
+    if (DamageAmount <= Def)
+    {
+        DamageAmount = 0;
+    }
     Hp -= DamageAmount;
 
     cout << Name << "가 " << DamageAmount << "의 피해를 입었습니다." << endl;
