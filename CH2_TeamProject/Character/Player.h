@@ -7,7 +7,7 @@ private:
 	int Exp;
 public:
 	Player();
-	Player(std::string NewName, int NewHp, int NewAtk);
+	Player(std::string NewName, int NewHp, int NewAtk,int NewDef, int NewCri);
 	~Player();
 
 };
