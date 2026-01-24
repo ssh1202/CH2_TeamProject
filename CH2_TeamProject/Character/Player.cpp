@@ -1,5 +1,7 @@
 #include "Player.h"
 #include "Character.h"
+
+//level, exp 초기화가 생략되었습니다.
 Player::Player()
 {
 }

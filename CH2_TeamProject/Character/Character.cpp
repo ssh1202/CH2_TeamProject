@@ -49,23 +49,24 @@ ACharacter::~ACharacter()
 
 void ACharacter::Attack(ACharacter* Target)
 {
-
+    //빈 줄 제거
 
 
     int random = getRandomInt();
 
     if (random <= Critical)
     {
+        //이러면 공격력이 매번 호출할때마다 1.5배 늘어납니다만...
+        // = 는 대입(값을 설정) 하는거 아시죠?
         Target->TakeDamage(Atk *= 1.5f);
         std::cout << Name << "가 크리티컬 공격합니다! (공격력" << Atk << ")" << std::endl;
     }
     else
     {
+        //변수를 사용해, 크리티컬과 아닌경우 TakeDamage 각각 호출되는걸, if else 밖에서 한줄로 바꿔봅시다.
         Target->TakeDamage(Atk);
         std::cout << Name << "가 공격합니다! (공격력" << Atk << ")" << std::endl;
     }
-    
-
 }
 
 void ACharacter::TakeDamage(int DamageAmount)
@@ -91,6 +92,6 @@ bool ACharacter::IsDead()
     if (Hp <= 0)
     {
         return true;
-    }
+    }// else는 생략될 수 있습니다.
     else return false;
 }
