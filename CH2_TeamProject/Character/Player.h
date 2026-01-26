@@ -1,14 +1,11 @@
-#pragma once
+﻿#pragma once
 #include "Character.h"
-class Player : public ACharacter
+class APlayer : public ACharacter
 {
-private:
-	int Level;
-	int Exp;
 public:
-	Player();
-	Player(std::string NewName, int NewHp, int NewAtk,int NewDef, int NewCri);
-	~Player();
+	APlayer();
+	APlayer(const std::string& NewName, const FUnitStat& NewStat);
+	~APlayer();
 
 };
 

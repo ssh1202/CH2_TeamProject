@@ -1,17 +1,17 @@
-#include "Player.h"
+﻿#include "Player.h"
 #include "Character.h"
 
-//level, exp 초기화가 생략되었습니다.
-Player::Player()
+
+APlayer::APlayer()
 {
 }
 
-Player::Player(std::string NewName, int NewHp, int NewAtk, int NewDef, int NewCri) 
-	: ACharacter(NewName, NewHp, NewAtk, NewDef, NewCri)
+APlayer::APlayer(const std::string& NewName, const FUnitStat& NewStat)
+	: ACharacter(NewName,NewStat)
 {
 
 }
 
-Player::~Player()
+APlayer::~APlayer()
 {
 }
