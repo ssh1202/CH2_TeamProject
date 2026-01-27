@@ -1,16 +1,7 @@
 ﻿#include "Monster.h"
 
-AMonster::AMonster()
-{
-}
-
-AMonster::AMonster(std::string MonsterName, const FUnitStat& MonsterStat)
-	: ACharacter(MonsterName,MonsterStat)
+AMonster::AMonster(const string& MonsterName, const FUnitStat& MonsterStat)
+	: ACharacter(MonsterName, MonsterStat)
 {
 	std::cout << "AMonster 생성됨 : " << Name << "(HP: " << Stat.Hp << ")" << std::endl;
-}
-
-AMonster::~AMonster()
-{
-	std::cout << "AMonster 소멸됨" << std::endl;
 }
