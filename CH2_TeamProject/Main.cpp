@@ -4,7 +4,7 @@
 
 int main()
 {
-    ACharacter* Player = new APlayer("나의 용사", {200,50,10,10});
+    ACharacter* Player = new APlayer("나의 용사", {200, 50, 10, 10});
     ACharacter* Monster = new AMonster("무서운 오크", {100, 30, 5, 10});
 
     cout << "===  데스매치 시작!  ===" << endl;

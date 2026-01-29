@@ -25,24 +25,33 @@ ACharacter::~ACharacter()
     std::cout << "ACharacter 소멸됨" << std::endl;
 }
 
-void ACharacter::Attack(ACharacter* Target)
+FDamageResult ACharacter::Attack(ACharacter* Target)
 {
+
     int Damage = Stat.Atk;
-    
-    int Random = GetRandomInt();
-    if (Random < Stat.Critical)
+    bool bCritical = GetRandomInt() < Stat.Critical;
+
+    if (bCritical)
     {
         Damage = static_cast<int>(Damage * 1.5f);
     }
-    Target->TakeDamage(Damage);
+    
+    int FinalDamage = Target->TakeDamage(Damage);
+
+    FDamageResult result;
+    result.Damage = FinalDamage;
+    result.bCritical = bCritical;
+
+    return result;
 }
 
-void ACharacter::TakeDamage(int DamageAmount)
+int ACharacter::TakeDamage(int DamageAmount)
 {
-    DamageAmount -= Stat.Def;
+    int DamgeAmount = DamageAmount - Stat.Def;
     DamageAmount = max(DamageAmount, 0);
     
     Stat.Hp -= DamageAmount;
-    cout << Name << "가" << DamageAmount << "피해를 입었습니다." << endl;
+
+    return DamgeAmount;
 }
 
