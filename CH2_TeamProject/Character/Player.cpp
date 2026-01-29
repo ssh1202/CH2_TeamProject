@@ -9,7 +9,7 @@ APlayer::APlayer(const std::string& NewName, const FUnitStat& NewStat)
 	Exp = 0;
 }
 
-bool APlayer::UseItem()
+/*bool APlayer::UseItem()
 {
 
 }
@@ -17,4 +17,11 @@ bool APlayer::UseItem()
 void APlayer::LevelUp()
 {
 
+}*/
+
+
+void APlayer::Attack(ACharacter* Target)
+{
+	ACharacter::Attack(Target);
+	std::cout << Name << "가 공격합니다!" << std::endl;
 }

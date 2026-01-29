@@ -34,8 +34,6 @@ void ACharacter::Attack(ACharacter* Target)
     {
         Damage = static_cast<int>(Damage * 1.5f);
     }
-    
-    std::cout << Name << "가 공격합니다! (" << Damage << ")" << std::endl;
     Target->TakeDamage(Damage);
 }
 

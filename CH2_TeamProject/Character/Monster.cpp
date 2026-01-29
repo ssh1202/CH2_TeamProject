@@ -8,7 +8,6 @@ AMonster::AMonster(const string& MonsterName, const FUnitStat& MonsterStat)
 
 void AMonster::Attack(ACharacter* Target)
 {
-	std::cout << " '크아앙!' " << Name << "이(가) 이빨로 물어뜯습니다!" << std:: endl;
-
-	Target->TakeDamage(Stat.Atk);
+	std::cout << " '크아앙!' " << Name << "이(가) 이빨로 물어뜯습니다!" << std::endl;
+	ACharacter::Attack(Target);
 }
