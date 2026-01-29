@@ -4,8 +4,8 @@
 
 int main()
 {
-    ACharacter* Player = new APlayer("나의 용사", {100,50,10,10});
-    ACharacter* Monster = new AMonster("무서운 오크", {50, 30, 5, 10});
+    ACharacter* Player = new APlayer("나의 용사", {200,50,10,10});
+    ACharacter* Monster = new AMonster("무서운 오크", {100, 30, 5, 10});
 
     cout << "===  데스매치 시작!  ===" << endl;
     Sleep(1000);
@@ -19,6 +19,7 @@ int main()
             cout << "몬스터가 쓰러졌습니다! 승리!" << endl;
             break;
         }
+        Monster->Attack(Player);
 
         Sleep(500);
 
