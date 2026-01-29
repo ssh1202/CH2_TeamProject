@@ -12,10 +12,14 @@ int ACharacter::GetRandomInt()
     return dis(gen);
 }
 
-ACharacter::ACharacter(const string& NewName, const FUnitStat& NewStat)
+ACharacter::ACharacter(const string& NewName, const FUnitStat& UnitStat)
 {
     Name = NewName;
-    Stat = NewStat;
+    Stat = UnitStat;
+
+    Stat.Hp = Stat.MaxHp;
+    Stat.Mp = Stat.MaxMp;
+
 
     std::cout << "ACharacter 생성됨 : " << Name << "(HP: " << Stat.Hp << ")" << endl;
 }
@@ -47,11 +51,12 @@ FDamageResult ACharacter::Attack(ACharacter* Target)
 
 int ACharacter::TakeDamage(int DamageAmount)
 {
-    int DamgeAmount = DamageAmount - Stat.Def;
+    DamageAmount = DamageAmount - Stat.Def;
     DamageAmount = max(DamageAmount, 0);
-    
-    Stat.Hp -= DamageAmount;
 
-    return DamgeAmount;
+    Stat.Hp -= DamageAmount;
+    Stat.Hp = max(Stat.Hp, 0);
+
+    return DamageAmount;
 }
 
