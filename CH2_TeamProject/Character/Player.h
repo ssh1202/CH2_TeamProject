@@ -12,6 +12,8 @@ private:
 public:
 	bool UseItem();
 	void LevelUp();
+
 	FDamageResult Attack(ACharacter* Target) override;
+	void UseSkill(ACharacter* Target) override;
 };
 

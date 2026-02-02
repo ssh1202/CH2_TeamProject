@@ -29,6 +29,22 @@ ACharacter::~ACharacter()
     std::cout << "ACharacter 소멸됨" << std::endl;
 }
 
+void ACharacter::PrintName()
+{
+    std::cout << "[" << Name << "]";
+}
+
+void FDamageResult::PrintMessage(const string& AttackMessage)
+{
+    std::cout << "-----------------------------------------------" << std::endl;
+    Attacker->PrintName();
+    cout << AttackMessage << '\n';
+
+    Target->PrintName();
+    cout << "'받은 데미지' : " << Damage << " -> '남은 HP': " << Target->GetHp() << "/" << Target->GetMaxHp() << std::endl;
+    std::cout << "-----------------------------------------------" << std::endl;
+}
+
 FDamageResult ACharacter::Attack(ACharacter* Target)
 {
 
@@ -45,6 +61,8 @@ FDamageResult ACharacter::Attack(ACharacter* Target)
     FDamageResult result;
     result.Damage = FinalDamage;
     result.bCritical = bCritical;
+    result.Attacker = this;
+    result.Target = Target;
 
     return result;
 }

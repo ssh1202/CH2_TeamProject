@@ -7,5 +7,6 @@ public:
 	AMonster(const string& MonsterName, const FUnitStat& MonsterStat);
 
 	FDamageResult Attack(ACharacter* Target) override;
+	void UseSkill(ACharacter* Target) override;
 };
 
