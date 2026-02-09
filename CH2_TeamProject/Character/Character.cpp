@@ -6,75 +6,92 @@
 
 int ACharacter::GetRandomInt()
 {
-    static random_device rd;
-    static mt19937 gen(rd());
-    std::uniform_int_distribution<int> dis(0, 99);
-    return dis(gen);
+	static random_device rd;
+	static mt19937 gen(rd());
+	std::uniform_int_distribution<int> dis(0, 99);
+	return dis(gen);
 }
 
 ACharacter::ACharacter(const string& NewName, const FUnitStat& UnitStat)
 {
-    Name = NewName;
-    Stat = UnitStat;
+	Name = NewName;
+	Stat = UnitStat;
 
-    Stat.Hp = Stat.MaxHp;
-    Stat.Mp = Stat.MaxMp;
+	Stat.Hp = Stat.MaxHp;
+	Stat.Mp = Stat.MaxMp;
 
 
-    std::cout << "ACharacter 생성됨 : " << Name << "(HP: " << Stat.Hp << ")" << endl;
+	std::cout << "ACharacter 생성됨 : " << Name << "(HP: " << Stat.Hp << ")" << endl;
 }
 
 ACharacter::~ACharacter()
 {
-    std::cout << "ACharacter 소멸됨" << std::endl;
+	std::cout << "ACharacter 소멸됨" << std::endl;
 }
 
 void ACharacter::PrintName()
 {
-    std::cout << "[" << Name << "]";
+	std::cout << "[" << Name << "]";
 }
 
 void FDamageResult::PrintMessage(const string& AttackMessage)
 {
-    std::cout << "-----------------------------------------------" << std::endl;
-    Attacker->PrintName();
-    cout << AttackMessage << '\n';
+	std::cout << "-----------------------------------------------" << std::endl;
+	Attacker->PrintName();
+	cout << AttackMessage << '\n';
 
-    Target->PrintName();
-    cout << "'받은 데미지' : " << Damage << " -> '남은 HP': " << Target->GetHp() << "/" << Target->GetMaxHp() << std::endl;
-    std::cout << "-----------------------------------------------" << std::endl;
+	Target->PrintName();
+	cout << "'받은 데미지' : " << Damage << " -> '남은 HP': " << Target->GetHp() << "/" << Target->GetMaxHp() << std::endl;
+	std::cout << "-----------------------------------------------" << std::endl;
 }
 
 FDamageResult ACharacter::Attack(ACharacter* Target)
 {
 
-    int Damage = Stat.Atk;
-    bool bCritical = GetRandomInt() < Stat.Critical;
+	int Damage = Stat.Atk;
+	bool bCritical = GetRandomInt() < Stat.Critical;
 
-    if (bCritical)
-    {
-        Damage = static_cast<int>(Damage * 1.5f);
-    }
-    
-    int FinalDamage = Target->TakeDamage(Damage);
+	if (bCritical)
+	{
+		Damage = static_cast<int>(Damage * 1.5f);
+	}
 
-    FDamageResult result;
-    result.Damage = FinalDamage;
-    result.bCritical = bCritical;
-    result.Attacker = this;
-    result.Target = Target;
+	int FinalDamage = Target->TakeDamage(Damage);
 
-    return result;
+	FDamageResult result;
+	result.Damage = FinalDamage;
+	result.bCritical = bCritical;
+	result.Attacker = this;
+	result.Target = Target;
+
+	return result;
 }
 
 int ACharacter::TakeDamage(int DamageAmount)
 {
-    DamageAmount = DamageAmount - Stat.Def;
-    DamageAmount = max(DamageAmount, 0);
+	DamageAmount = DamageAmount - Stat.Def;
+	DamageAmount = max(DamageAmount, 0);
 
-    Stat.Hp -= DamageAmount;
-    Stat.Hp = max(Stat.Hp, 0);
+	Stat.Hp -= DamageAmount;
+	Stat.Hp = max(Stat.Hp, 0);
 
-    return DamageAmount;
+	return DamageAmount;
+}
+
+void ACharacter::PlayTurn(ACharacter* Target)
+{
+	const int AttackRate = 70;
+	const int SkillMp = 10;
+	if (GetRandomInt() < AttackRate)
+	{
+		Attack(Target);
+		return;
+	}
+	if (Stat.Mp < SkillMp)
+	{
+		return;
+	}
+	Stat.Mp -= SkillMp;
+	UseSkill(Target);
 }
 

@@ -65,6 +65,7 @@ public:
 	int GetHp() { return Stat.Hp; }
 	string GetName() { return Name; }
 	bool IsDead() { return Stat.Hp <= 0; }
+	void PlayTurn(ACharacter* Target);
 	
 private:
 	int GetRandomInt();

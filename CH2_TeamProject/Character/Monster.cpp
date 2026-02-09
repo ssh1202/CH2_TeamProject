@@ -29,7 +29,6 @@ void AMonster::UseSkill(ACharacter* Target)
 		std::cout << "MP가 부족합니다!" << std::endl;
 		return;
 	}
-	Stat.Mp -= 10;
 
 	FDamageResult result;
 	result.Attacker = this;
