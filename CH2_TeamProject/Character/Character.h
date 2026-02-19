@@ -61,9 +61,13 @@ public:
 
 	void PrintName();
 
+	string GetName() const { return Name; }
 	int GetMaxHp() const { return Stat.MaxHp; }
-	int GetHp() { return Stat.Hp; }
-	string GetName() { return Name; }
+	int GetHp() const { return Stat.Hp; }
+	int GetMaxMp() const { return Stat.MaxMp; }
+	int GetMp() const { return Stat.Mp; }
+	void ShowStat();
+
 	bool IsDead() { return Stat.Hp <= 0; }
 	void PlayTurn(ACharacter* Target);
 	

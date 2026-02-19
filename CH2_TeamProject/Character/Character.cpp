@@ -78,6 +78,11 @@ int ACharacter::TakeDamage(int DamageAmount)
 	return DamageAmount;
 }
 
+void ACharacter::ShowStat()
+{
+	std::cout << "[" << GetName() << "]" << "HP :" << GetHp() << "/" << GetMaxHp() << " | " << "MP :" << GetMp() << "/" << GetMaxMp() << std::endl;
+}
+
 void ACharacter::PlayTurn(ACharacter* Target)
 {
 	const int AttackRate = 70;
@@ -87,11 +92,14 @@ void ACharacter::PlayTurn(ACharacter* Target)
 		Attack(Target);
 		return;
 	}
-	if (Stat.Mp < SkillMp)
+	if (Stat.Mp >= SkillMp)
 	{
+		UseSkill(Target);
+		Stat.Mp -= SkillMp;
 		return;
 	}
-	Stat.Mp -= SkillMp;
-	UseSkill(Target);
+	std::cout << "MP가 부족합니다!" << std::endl;
+	Attack(Target);
+
 }
 

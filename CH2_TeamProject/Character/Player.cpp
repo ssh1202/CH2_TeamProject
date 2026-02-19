@@ -27,12 +27,6 @@ FDamageResult APlayer::Attack(ACharacter* Target)
 void APlayer::UseSkill(ACharacter* Target)
 {
 
-	if (Stat.Mp < 10)
-	{
-		std::cout << "MP가 부족합니다!" << std::endl;
-		return;
-	}
-
 	FDamageResult result;
 	result.Attacker = this;
 	result.Target = Target;
